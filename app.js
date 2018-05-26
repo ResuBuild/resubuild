@@ -67,6 +67,6 @@ app.use('/', routes);
 //app.use('/users', users);
 
 //listen
-app.listen(port, function(){
-  console.log("server has started on port " + port);
+app.listen(process.env.PORT || port, function(){, function(){
+  console.log("server has started on port " + this.address().port);
 });
