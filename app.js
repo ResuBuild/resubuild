@@ -27,6 +27,7 @@ app = express();
 
 //template engine
 app.engine("handlebars", exphbs({defaultLayout: "layout"}));
+app.set('port', (process.env.PORT || 5000))
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 
@@ -67,6 +68,6 @@ app.use('/', routes);
 //app.use('/users', users);
 
 //listen
-app.listen(process.env.PORT || port, function(){
+app.listen(app.get('port'), function(){
   console.log("server has started on port " + this.address().port);
 });
