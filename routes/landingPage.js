@@ -14,19 +14,78 @@ const { check, validationResult } = require('express-validator/check');
 //****************************************************************************
 //                            GET METHODS
 //****************************************************************************
+router.get('/gettingStarted', ensureAuthenticated, function(req,res){
+  res.render("gettingStarted");
+});
+
+router.get('/addJob', ensureAuthenticated, function(req,res){
+  res.render("addJob");
+});
+
+router.get('/buildResume', ensureAuthenticated, function(req,res){
+  res.render("buildResume");
+});
+
+router.get('/profile', ensureAuthenticated, function(req,res){
+  res.render("profile");
+});
+
+router.get('/achievements', ensureAuthenticated, function(req,res){
+  res.render("achievements");
+});
+
+router.get('/education', ensureAuthenticated, function(req,res){
+  res.render("education");
+});
+
+router.get('/experiences', ensureAuthenticated, function(req,res){
+  res.render("experiences");
+});
+
+router.get('/projects', ensureAuthenticated, function(req,res){
+  res.render("projects");
+});
+
+router.get('/other', ensureAuthenticated, function(req,res){
+  res.render("other");
+});
+
+router.get('/skills', ensureAuthenticated, function(req,res){
+  res.render("skills");
+});
+
 router.get('/', function(req, res){
   res.render("login");
-
-
 });
 
 router.get('/register', function(req, res){
   res.render("register");
 });
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/')
+})
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
 //****************************************************************************
 //                          POST METHODS
 //****************************************************************************
+
+router.post('/skills', function(req,res){
+  User.update({email: req.user.email}, {$push: { skills: req.body.name}});
+  res.redirect('/skills');
+});
+
 router.post('/register', [
   check('email', 'not a valid email ').isEmail(),
   check('password2').custom((value,{req, loc, path}) => {
@@ -92,20 +151,22 @@ passport.use(new LocalStrategy(
       User.comparePassword(password, user.password, function(err, isMatch){
         if(err) throw err;
         if(!isMatch) return done(null, false, {message: "Invalid Password"});
+        else return done(null, user);
       });
     });
   }));
 
 router.post('/', passport.authenticate('local', {failureRedirect: '/', failureFlash: true}),
   function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    console.log("done");
-    //res.redirect('/profile');
+    req.flash('success', 'You are currently logged in.');
+    res.redirect('/gettingStarted');
     });
 
 
-
+function ensureAuthenticated(req, res, next) {
+  if ( req.isAuthenticated() ) return next();
+  res.redirect('/')
+}
 
 
 

@@ -16,7 +16,10 @@ var UserSchema = mongoose.Schema({
   },
   lastname: {
     type: String
-  }
+  },
+  skills: {
+    type: [{firstName: String, lastName: String}]
+  },
   });
 
 var User = mongoose.model("users", UserSchema);
@@ -32,12 +35,13 @@ module.exports.createUser = function(newUser, callback){
     });
   });
 }
+
 module.exports.getUserbyUsername = function(username, callback){
   var query = {'email': username};
   User.findOne(query, callback);
 }
 
-module.exports.getUserbyId = function(id, callback){
+module.exports.getUserById = function(id, callback){
     User.findById(id, callback);
 }
 
@@ -50,6 +54,7 @@ module.exports.updateUser = function(idr){
     });
   });
 }
+
 
 module.exports.comparePassword = function(typed, hash, callback){
   bcrypt.compare(typed, hash, function(err, res) {
