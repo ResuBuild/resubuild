@@ -12,7 +12,8 @@ var LocalStrategy = require('passport-local').Strategy;
 const { matchedData, sanitize } = require('express-validator/filter');
 const port = 3000;
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://"+process.env.dbUsername+":"+process.env.dbPassword+"@ds135760.mlab.com:35760/resubuild",function(err) {
+//mongoose.connect("mongodb://"+process.env.dbUsername+":"+process.env.dbPassword+"@ds135760.mlab.com:35760/resubuild",function(err) {
+mongoose.connect(process.env.MONGODB_URI,function(err) {
     if (err)
         errorDB = true;
 });
