@@ -120,8 +120,15 @@ router.post('/other', function(req, res){
   User.updateOther(res.locals.user.id, req.body.name, req.body.description);
   req.flash("success_msg", "Other Information Added");
   res.redirect('/other');
-
 });
+
+
+router.post('/buildResume/:index', function(req, res){
+  res.render("resume", {
+    index: req.params.index
+  });
+});
+
 
 
 router.post('/register', [
