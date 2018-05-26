@@ -2,7 +2,6 @@
   "name": "resubuild",
   "version": "1.0.0",
   "description": "web app that creates tailored resumes",
-  "main": "app.js",
   "scripts": {
     "start": "app.js"
   },
