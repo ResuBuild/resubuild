@@ -22,48 +22,48 @@ var UserSchema = mongoose.Schema({
   },
   projects: {
     name: {
-      type: String
+      type: [String]
     },
     technologies: {
-      type: String
+      type: [String]
     },
     description: {
-      type: String
+      type: [String]
     }
   },
   education: {
     name: {
-      type: String
+      type: [String]
     },
     degree: {
-      type: String
+      type: [String]
     }
   },
   achievements: {
     title: {
-      type: String
+      type: [String]
     },
     description: {
-      type: String
+      type: [String]
     }
   },
   workExperience: {
     jobTitle : {
-      type: String
+      type: [String]
     },
     technologies: {
-      type: String
+      type: [String]
     },
     accomplishments: {
-      type: String
+      type: [String]
     }
   },
   other: {
     title: {
-      type: String
+      type: [String]
     },
     description: {
-      type: String
+      type: [String]
     }
   }
 
@@ -105,9 +105,9 @@ module.exports.updateUserSkills = function(idr, skill){
 module.exports.updateUserProjects = function(idr, name, tech, desc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.projects.name = name;
-    user.projects.technologies = tech;
-    user.projects.description = desc;
+    user.projects.name.push(name);
+    user.projects.technologies.push(tech);
+    user.projects.description.push(desc);
     user.save(function(err, user){
       if(err) console.log(err);
     });
@@ -117,8 +117,8 @@ module.exports.updateUserProjects = function(idr, name, tech, desc){
 module.exports.updateEducation = function(idr, name, degree){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.education.name = name;
-    user.education.degree = degree;
+    user.education.name.push(name);
+    user.education.degree.push(degree);
     user.save(function(err, user){
       if(err) console.log(err);
     });
@@ -128,8 +128,8 @@ module.exports.updateEducation = function(idr, name, degree){
 module.exports.updateAchievements = function(idr, name, desc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.achievements.title = name;
-    user.achievements.description = desc;
+    user.achievements.title.push(name);
+    user.achievements.description.push(desc);
     user.save(function(err, user){
       if(err) console.log(err);
     });
@@ -139,9 +139,9 @@ module.exports.updateAchievements = function(idr, name, desc){
 module.exports.updateWorkExperience = function(idr, jobtitle, tech, acc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.workExperience.jobTitle = jobtitle;
-    user.workExperience.technologies = tech;
-    user.workExperience.accomplishments = acc;
+    user.workExperience.jobTitle.push(jobtitle);
+    user.workExperience.technologies.push(tech);
+    user.workExperience.accomplishments.push(acc);
     user.save(function(err, user){
       if(err) console.log(err);
     });
@@ -151,8 +151,8 @@ module.exports.updateWorkExperience = function(idr, jobtitle, tech, acc){
 module.exports.updateOther = function(idr, name, description){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.other.title = name;
-    user.other.description = description;
+    user.other.title.push(name);
+    user.other.description.push(description);
     user.save(function(err, user){
       if(err) console.log(err);
     });
