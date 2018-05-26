@@ -123,7 +123,7 @@ router.post('/other', function(req, res){
 });
 
 
-router.get('/buildResume/index', function(req, res){
+router.get('/buildResume/:index', function(req, res){
   res.render("resume", {
     index: req.params.index
   });
