@@ -40,9 +40,8 @@
                 <h2 class="container-block-title">Education</h2>
                 <div class="item">
                     <h4 class="degree">Degree</h4>
-                    {{#each currentUser.education.name}}
-                    <p> {{currentUser.education.name}} </p>
-                    <br>
+                    {{#each currentUser}}
+                    <p> {{currentUser}} </p>
                     {{/each}}
 
                 </div><!--//item-->
