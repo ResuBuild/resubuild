@@ -362,7 +362,7 @@ h1, h2, h3, h4, h5, h6,
   vertical-align: -4px;
   line-height: 1.2rem !important;
   padding-right: 2rem;}
-.MenuHeader .navbar-dropdown .navbar-caption, 
+.MenuHeader .navbar-dropdown .navbar-caption,
 .MenuHeader .navbar-dropdown .navbar-caption:hover {
   color: inherit;
   text-decoration: none; }
@@ -373,7 +373,7 @@ h1, h2, h3, h4, h5, h6,
   height: 3.125rem;
   margin-right: 0.8rem;
   vertical-align: middle;
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
   display: flex;}
 .MenuHeader .navbar-toggleable-sm .navbar-collapse {
   justify-content: flex-end;
@@ -447,7 +447,7 @@ h1, h2, h3, h4, h5, h6,
   opacity: 0;
   right: 50%;
   transition: all .2s;}
-@media (max-width: 1400px) {
+@media (max-width: 900px) {
   .MenuHeader img {
     height: 3.8rem !important;
   }
@@ -486,5 +486,3 @@ h1, h2, h3, h4, h5, h6,
   .MenuHeader .menu-logo {
     flex-shrink: 0;
   }}
-
-

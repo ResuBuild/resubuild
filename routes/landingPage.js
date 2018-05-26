@@ -82,8 +82,40 @@ passport.deserializeUser(function(id, done) {
 //****************************************************************************
 
 router.post('/skills', function(req,res){
-  User.update({email: req.user.email}, {$push: {skills: req.body.name}});
+  User.updateUserSkills(res.locals.user.id, req.body.name);
+    req.flash("success_msg", "Skill Added");
   res.redirect('/skills');
+});
+
+router.post('/projects', function(req, res){
+  User.updateUserProjects(res.locals.user.id, req.body.name, req.body.tech,req.body.description);
+    req.flash("success_msg", "Project Added");
+  res.redirect('/projects');
+});
+
+router.post('/education', function(req, res){
+  User.updateEducation(res.locals.user.id, req.body.name, req.body.degree);
+  req.flash("success_msg", "Education Added");
+res.redirect('/education');
+});
+
+router.post('/achievements', function(req, res){
+  User.updateAchievements(res.locals.user.id, req.body.name, req.body.description);
+  req.flash("success_msg", "Achievements Added");
+  res.redirect('/achievements');
+});
+
+router.post('/experiences', function(req, res){
+  User.updateWorkExperience(res.locals.user.id, req.body.name, req.body.tech, req.body.description);
+  req.flash("success_msg", "Achievements Added");
+  res.redirect('/achievements');
+});
+
+router.post('/other', function(req, res){
+  User.updateOther(res.locals.user.id, req.body.name, req.body.description);
+  req.flash("success_msg", "Other Information Added");
+  res.redirect('/other');
+
 });
 
 router.post('/register', [
