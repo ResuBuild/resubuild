@@ -172,6 +172,20 @@ else{
 }
 });
 
+router.post('/match'), function(req, res){
+  var paragraph = req.body;
+  paragraph = paragraph.replace(/,/g, " ").split(" ");
+  var skills = res.locals.user.skills;
+  var matchingSkills = [];
+
+  for(let i = 0; i < skills.length; i += 1){
+    if(paragraph.includes(skills[i])){
+      matchingSkills.push(skills[i]);
+    }
+  }
+
+}
+
 //PASSPORT middleware
 passport.use(new LocalStrategy(
   function(username, password, done) {
