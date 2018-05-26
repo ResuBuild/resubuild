@@ -49,23 +49,52 @@
     </nav>
 </section>
 
-<section><br><br><br></section>
-
 <section class="Category fullscreen">
     <div class="container">
-        <h1 class="section-title Raleway4p25"><br>Public Profile<hr></h1>
-        <div class="leftLine bullets">
-          <form method="post">
-            <div class="media-container-row">
-            <div class="form-group">
-              <h2 class="form-control-label Raleway1p5">Title</h2>
-              <input type="text" name="name" class="form-control" required>
+      <div class="media-container-row">
+        <div class="container col-lg-5">
+            <h1 class="section-title Raleway4p25"><br>Public Profile<hr></h1><br>
+            <div class="leftLine bullets">
+              <form method="post">
+                <div class="form-group">
+                  <h2 class="form-control-label Raleway1p5">Name</h2>
+                  <input type="text" name="name" class="form-control" required>
+                </div>
+              </form>
+              <form method="post">
+                <div class="form-group">
+                  <h2 class="form-control-label Raleway1p5">Email</h2>
+                  <input type="text" name="name" class="form-control" required>
+                </div>
+              </form>
+              <form method="post">
+                <div class="form-group">
+                  <h2 class="form-control-label Raleway1p5">Github</h2>
+                  <input type="text" name="name" class="form-control" required>
+                </div>
+              </form>
+              <form method="post">
+                <div class="form-group">
+                  <h2 class="form-control-label Raleway1p5">LinkedIn</h2>
+                  <input type="text" name="name" class="form-control" required>
+                </div>
+              </form>
             </div>
-            <button style="float: left;" name="submit" type="submit" class="btn btn-fill">Submit</button>
-          </div>
-          </form>
-          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
         </div>
+        <div class="col-lg-3"></div>
+        <div class="container col-lg-5">
+        <h1 class="section-title Raleway4p25"><br>Skills<hr></h1>
+        <div class="leftLine bullets">
+          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
+          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
+          {{#if error}}
+          {{#each error}}
+          <p class="text Raleway1p5" id="alert">•Job: {{this}}</p>
+          {{/each}}
+          {{/if}}
+        </div>
+    </div>
+      </div>
     </div>
 </section>
 
