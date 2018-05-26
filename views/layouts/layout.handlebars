@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> HR APP </title>
+</head>
+<body>
+  {{#if success_msg}}
+  <div class="alert alert-success">
+  <strong>Success!</strong> {{success_msg}}
+</div>
+{{/if}}
+{{#if error_msg}}
+            <div class="alert alert-danger"><strong> Error </strong> {{error_msg}}</div>
+{{/if}}
+ {{#if error}}
+    {{#if isError}}
+            <div class="alert alert-danger"><strong> Error </strong> {{error}}</div>
+{{/if}}
+{{/if}}
+  {{{body}}}
+</body>
+</html>

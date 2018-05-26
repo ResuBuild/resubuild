@@ -1,0 +1,41 @@
+{
+  "name": "resubuild",
+  "version": "1.0.0",
+  "description": "web app that creates tailored resumes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ResuBuild/resubuild.git"
+  },
+  "author": "Yash, Ji Lin, Gaurav, Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ResuBuild/resubuild/issues"
+  },
+  "homepage": "https://github.com/ResuBuild/resubuild#readme",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "ejs": "^2.5.9",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "*",
+    "mongoose": "*",
+    "nodemailer": "^4.6.4",
+    "passport": "*",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-http": "*",
+    "passport-local": "*",
+    "underscore": "^1.9.0"
+  }
+}
