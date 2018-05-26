@@ -124,9 +124,60 @@ router.post('/other', function(req, res){
 
 
 router.get('/buildResume/:index', function(req, res){
+  var jobName = res.locals.user.addedJob.title[req.params.index];
+  var jobSkills = res.locals.user.addedJob.skills[req.params.index];
+
+  var projects = res.locals.user.projects;
+  var skills = res.locals.user.skills;
+  jobSkills +=' ' + res.locals.user.addedJob.summary[req.params.index];
+  var matchingSkills = [];
+  var matchingProjects = {
+    name: [],
+    technologies: [],
+    description: [],
+  };
+
+  for(let i = 0; i < skills.length; i += 1){
+    if(jobSkills.toUpperCase().includes(skills[i].toUpperCase())){
+      matchingSkills.push(skills[i]);
+    }
+  }
+
+  for(let i = 0; i < projects.name.length; i += 1){
+    var languages = projects.technologies[i].replace(/ /g,"").split(",");
+    for(let j = 0; j  < languages.length; j++){
+      console.log(languages[j]);
+      console.log(jobSkills);
+      if(jobSkills.toUpperCase().includes(languages[j].toUpperCase())){
+          matchingProjects.name.push(projects.name[i]);
+          matchingProjects.technologies.push(projects.technologies[i]);
+          matchingProjects.description.push(projects.description[i]);
+    }
+
+    }
+  }
+
+  
+  var workExperience = res.locals.user.workExperience;
+  var matchingExperience = {
+    jobTitle: [],
+    technologies: [],
+    accomplishments: []
+  };
+  for(let i = 0; i < workExperience.jobTitle.length; i += 1){
+    if(jobName.includes(workExperience.jobTitle[i])){
+      matchingExperience.jobTitle.push(workExperience.jobTitle[i]);
+      matchingExperience.technologies.push(workExperience.technologies[i]);
+      matchingExperience.accomplishments.push(workExperience.accomplishments[i]);
+    }
+  }
+  res.locals.user.matchedExperience = matchingExperience;
+  res.locals.user.matchedProjects = matchedProjects;
+  res.locals.user.matchedSkills = matchedSkills;
+
   res.render("resume", {
-    index: req.params.index
-  });
+    currentUser : res.locals.user
+  })
 });
 
 
@@ -186,36 +237,6 @@ else{
 });
 
 router.post('/addJob', function(req, res){
-  var jobSkills = req.body.skills;
-  var skills = res.locals.user.skills;
-
-  console.log(skills);
-  var matchingSkills = [];
-
-  for(let i = 0; i < skills.length; i += 1){
-    if(jobSkills.includes(skills[i])){
-      matchingSkills.push(skills[i]);
-    }
-  }
-
-  var jobName = req.body.name;
-  var workExperience = res.locals.user.workExperience;
-  var matchingExperience = {
-    jobTitle: [],
-    technologies: [],
-    accomplishments: []
-  };
-  for(let i = 0; i < workExperience.jobTitle.length; i += 1){
-    if(jobName.includes(workExperience.jobTitle[i])){
-      matchingExperience.jobTitle.push(workExperience.jobTitle[i]);
-      matchingExperience.technologies.push(workExperience.technologies[i]);
-      matchingExperience.accomplishments.push(workExperience.accomplishments[i]);
-    }
-  }
-
-  console.log(workExperience);
-  console.log(matchingExperience);
-
   User.updateAddedJobs(res.locals.user.id, req.body.name, req.body.summary, req.body.responsibility, req.body.skills);
   req.flash("success_msg", "Job Added");
   res.redirect('/addJob');

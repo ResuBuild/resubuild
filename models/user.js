@@ -83,6 +83,31 @@ var UserSchema = mongoose.Schema({
       type: [String]
 
     }
+  }, 
+  matchedSkills : {
+    type: [String]
+  }, 
+  matchedProjects: {
+    name: {
+      type: [String]
+    },
+    technologies: {
+      type: [String]
+    },
+    description: {
+      type: [String]
+    }
+  },
+  matchedExperience: {
+    jobTitle : {
+      type: [String]
+    },
+    technologies: {
+      type: [String]
+    },
+    accomplishments: {
+      type: [String]
+    }
   }
 
   });
