@@ -172,12 +172,12 @@ router.get('/buildResume/:index', function(req, res){
     }
   }
   res.locals.user.matchedExperience = matchingExperience;
-  res.locals.user.matchedProjects = matchedProjects;
-  res.locals.user.matchedSkills = matchedSkills;
+  res.locals.user.matchedProjects = matchingProjects;
+  res.locals.user.matchedSkills = matchingSkills;
 
   res.render("resume", {
     currentUser : res.locals.user
-  })
+  });
 });
 
 
