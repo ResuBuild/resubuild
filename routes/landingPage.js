@@ -157,7 +157,7 @@ router.get('/buildResume/:index', function(req, res){
     }
   }
 
-  
+
   var workExperience = res.locals.user.workExperience;
   var matchingExperience = {
     jobTitle: [],
@@ -175,7 +175,7 @@ router.get('/buildResume/:index', function(req, res){
   res.locals.user.matchedProjects = matchingProjects;
   res.locals.user.matchedSkills = matchingSkills;
 
-  res.render("resume", {
+  res.render("resumeFinal", {
     currentUser : res.locals.user
   });
 });
