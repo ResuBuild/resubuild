@@ -2,9 +2,8 @@
   "name": "resubuild",
   "version": "1.0.0",
   "description": "web app that creates tailored resumes",
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
