@@ -273,6 +273,12 @@ h1, h2, h3, h4, h5, h6,
   position: relative;
   margin-bottom: .357em;
   padding: 0;}
+@media(min-width: 768px) {
+  .Category .leftLine {
+    border-left: 2px solid #149dcc;
+    padding-left: 30px;}
+  .Category .bullets {
+  padding-left: 50px;}}
 
 #prev-slide {
     position: absolute;

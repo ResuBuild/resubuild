@@ -1,1 +1,76 @@
-This page will allow the user to drag blocks on a page and build a resume. They can then save this to their account or download a pdf.
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/icons/mobirise-icons.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<section class="MenuHeader">
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-toggleable-sm">
+
+      <div class="menu-logo">         
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <img src="/logo.png" style="height: 4.9rem;">
+                </span>
+                <span class="navbar-caption-wrap">
+                    <a class="navbar-caption Raleway1p5" href="">ResuBuild</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                <li class="nav-item dropdown"><a class="underline" href="/gettingStarted">Add Content</a>
+                    <div class="dropdown-content-115">
+                        <a href="/skills">Skills</a>
+                        <a href="/projects">Projects</a>
+                        <a href="/education">Education</a>
+                        <a href="/achievements">Achievement</a>
+                        <a href="/experiences">Experiences</a>
+                        <a href="/other">Other</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="underline" href="/addJob">Add Job</a></li>
+                <li class="nav-item"><a class="underline" href="/buildResume">Build Resume</a></li>
+                <li class="nav-item"><a class="underline" href="/profile">Profile</a></li>
+                <li class="nav-item"><a class="underline" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+
+<section><br><br><br></section>
+
+<section class="Category fullscreen">
+    <div class="container">
+        <h1 class="section-title Raleway4p25"><br>Build Resume<hr></h1>
+        <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
+        <div class="leftLine bullets">
+          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
+          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
+          {{#if error}}
+		      {{#each error}}
+		      <p class="text Raleway1p5" id="alert">•Job: {{this}}</p>
+		      {{/each}}
+		      {{/if}}
+		    </div>
+    </div>
+</section>
+</body>
+
+
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/smoothscroll/smooth-scroll.js"></script>
+<script src="/touchswipe/jquery.touch-swipe.min.js"></script>
+
+</html>
