@@ -29,7 +29,9 @@ router.get('/buildResume', ensureAuthenticated, function(req,res){
 });
 
 router.get('/profile', ensureAuthenticated, function(req,res){
-  res.render("profile");
+  res.render("profile", {
+    currentUser : res.locals.user
+  });
 });
 
 router.get('/achievements', ensureAuthenticated, function(req,res){
