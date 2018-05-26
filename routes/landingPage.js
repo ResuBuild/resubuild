@@ -113,7 +113,7 @@ router.post('/achievements', function(req, res){
 router.post('/experiences', function(req, res){
   User.updateWorkExperience(res.locals.user.id, req.body.name, req.body.tech, req.body.description);
   req.flash("success_msg", "Achievements Added");
-  res.redirect('/achievements');
+  res.redirect('/experiences');
 });
 
 router.post('/other', function(req, res){
@@ -123,11 +123,6 @@ router.post('/other', function(req, res){
 
 });
 
-router.post('/addJob', function(req, res){
-  User.updateAddedJobs(res.locals.user.id, req.body.name, req.body.summary, req.body.responsibility, req.body.skills);
-  req.flash("success_msg", "Job Added");
-  res.redirect('/addJob');
-});
 
 router.post('/register', [
   check('email', 'not a valid email ').isEmail(),
@@ -151,7 +146,7 @@ router.post('/register', [
   }
 else{
   process.nextTick(function(){
-    User.findOne({'local.email': req.body.email}, function(err, user){
+    User.findOne({'email': req.body.email}, function(err, user){
       if(user){
         res.render("register", {
           error: "Email already used"
@@ -181,6 +176,39 @@ else{
 });
 });
 }
+});
+
+router.post('/addJob', function(req, res){
+  var jobSkills = req.body.skills;
+  var skills = res.locals.user.skills;
+  var matchingSkills = [];
+
+  for(let i = 0; i < skills.length; i += 1){
+    if(jobSkills.includes(skills[i])){
+      matchingSkills.push(skills[i]);
+    }
+  }
+
+  var jobName = req.body.name;
+  var workExperience = res.locals.user.workExperience;
+  var matchingExperience = {
+    jobTitle: [],
+    technologies: [],
+    accomplishments: []
+  };
+  for(let i = 0; i < workExperience.jobTitle.length; i += 1){
+    if(jobName.includes(workExperience.jobTitle[i])){
+      matchingExperience.jobTitle.push(workExperience.jobTitle[i]);
+      matchingExperience.technologies.push(workExperience.technologies[i]);
+      matchingExperience.accomplishments.push(workExperience.accomplishments[i]);
+    }
+  }
+  console.log(workExperience);
+  console.log(matchingExperience);
+
+  User.updateAddedJobs(res.locals.user.id, req.body.name, req.body.summary, req.body.responsibility, req.body.skills);
+  req.flash("success_msg", "Job Added");
+  res.redirect('/addJob');
 });
 
 //PASSPORT middleware
