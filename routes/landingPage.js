@@ -82,7 +82,7 @@ passport.deserializeUser(function(id, done) {
 //****************************************************************************
 
 router.post('/skills', function(req,res){
-  User.update({email: req.user.email}, {$push: { skills: req.body.name}});
+  User.update({email: req.user.email}, {$push: {skills: req.body.name}});
   res.redirect('/skills');
 });
 
@@ -90,7 +90,7 @@ router.post('/register', [
   check('email', 'not a valid email ').isEmail(),
   check('password2').custom((value,{req, loc, path}) => {
             if (value !== req.body.password1) {
-                throw new Error(" Passwords don't match");
+                throw new Error("Passwords don't match");
             } else {
                 return value;
             }

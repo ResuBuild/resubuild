@@ -18,7 +18,7 @@ var UserSchema = mongoose.Schema({
     type: String
   },
   skills: {
-    type: [{firstName: String, lastName: String}]
+    type: [String]
   },
   });
 
