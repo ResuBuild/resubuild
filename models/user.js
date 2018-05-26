@@ -65,6 +65,24 @@ var UserSchema = mongoose.Schema({
     description: {
       type: [String]
     }
+  },
+  addedJob : {
+    title: {
+      type: [String]
+
+    },
+    summary : {
+      type: [String]
+
+    },
+    responsibility : {
+      type: [String]
+
+    },
+    skills : {
+      type: [String]
+
+    }
   }
 
   });
@@ -157,7 +175,19 @@ module.exports.updateOther = function(idr, name, description){
       if(err) console.log(err);
     });
   });
+}
 
+module.exports.updateAddedJobs = function(idr, title, summary, responsibility, skills){
+  User.findById(idr, function(err, user){
+    if(err) console.log(err);
+    user.addedJob.title.push(title);
+    user.addedJob.summary.push(summary);
+    user.addedJob.responsibility.push(responsibility);
+    user.addedJob.skills.push(skills);
+    user.save(function(err, user){
+      if(err) console.log(err);
+    });
+  });
 }
 
 module.exports.comparePassword = function(typed, hash, callback){

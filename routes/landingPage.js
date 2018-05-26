@@ -23,7 +23,9 @@ router.get('/addJob', ensureAuthenticated, function(req,res){
 });
 
 router.get('/buildResume', ensureAuthenticated, function(req,res){
-  res.render("buildResume");
+  res.render("buildResume", {
+    currentUser : res.locals.user
+  });
 });
 
 router.get('/profile', ensureAuthenticated, function(req,res){
@@ -116,6 +118,12 @@ router.post('/other', function(req, res){
   req.flash("success_msg", "Other Information Added");
   res.redirect('/other');
 
+});
+
+router.post('/addJob', function(req, res){
+  User.updateAddedJobs(res.locals.user.id, req.body.name, req.body.summary, req.body.responsibility, req.body.skills);
+  req.flash("success_msg", "Job Added");
+  res.redirect('/addJob');
 });
 
 router.post('/register', [

@@ -17,7 +17,7 @@
 <section class="MenuHeader">
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-toggleable-sm">
 
-      <div class="menu-logo">         
+      <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <img src="/logo.png" style="height: 4.9rem;">
@@ -56,13 +56,9 @@
         <h1 class="section-title Raleway4p25"><br>Build Resume<hr></h1>
         <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
         <div class="leftLine bullets">
-          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
-          <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
-          {{#if error}}
-		      {{#each error}}
-		      <p class="text Raleway1p5" id="alert">•Job: {{this}}</p>
-		      {{/each}}
-		      {{/if}}
+        {{#each currentUser.addedJob.title}}
+          <p class="text Raleway1p5">{{this}}</p>
+        {{/each}}
 		    </div>
     </div>
 </section>
