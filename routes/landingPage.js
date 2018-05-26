@@ -181,6 +181,8 @@ else{
 router.post('/addJob', function(req, res){
   var jobSkills = req.body.skills;
   var skills = res.locals.user.skills;
+
+  console.log(skills);
   var matchingSkills = [];
 
   for(let i = 0; i < skills.length; i += 1){
@@ -203,6 +205,7 @@ router.post('/addJob', function(req, res){
       matchingExperience.accomplishments.push(workExperience.accomplishments[i]);
     }
   }
+
   console.log(workExperience);
   console.log(matchingExperience);
 
