@@ -30,7 +30,8 @@ router.get('/buildResume', ensureAuthenticated, function(req,res){
 
 router.get('/profile', ensureAuthenticated, function(req,res){
   res.render("profile", {
-    currentUser : res.locals.user
+    currentUser : res.locals.user,
+    firstname : res.locals.user.firstname + res.locals.user.lastname
   });
 });
 
