@@ -3,7 +3,7 @@ var bcrypt = require("bcryptjs");
 var ObjectId = require('mongodb').ObjectID;
 const saltRounds = 10;
 
-//user schema
+//User Schema
 var UserSchema = mongoose.Schema({
   firstname: {
     type: String
@@ -20,7 +20,8 @@ var UserSchema = mongoose.Schema({
   skills: {
     type: [String]
   },
-  projects: {
+  projects: []
+  /*
     name: {
       type: [String]
     },
@@ -30,24 +31,30 @@ var UserSchema = mongoose.Schema({
     description: {
       type: [String]
     }
-  },
-  education: {
+  */
+  ,
+  education: []
+  /*
     name: {
       type: [String]
     },
     degree: {
       type: [String]
     }
-  },
-  achievements: {
+  */
+  ,
+  achievements: []
+  /*
     title: {
       type: [String]
     },
     description: {
       type: [String]
     }
-  },
-  workExperience: {
+  */
+  ,
+  workExperience: []
+  /*
     jobTitle : {
       type: [String]
     },
@@ -57,16 +64,20 @@ var UserSchema = mongoose.Schema({
     accomplishments: {
       type: [String]
     }
-  },
-  other: {
+  */
+  ,
+  other: []
+  /*
     title: {
       type: [String]
     },
     description: {
       type: [String]
     }
-  },
-  addedJob : {
+  */
+  ,
+  addedJob : []
+  /*
     title: {
       type: [String]
 
@@ -83,11 +94,13 @@ var UserSchema = mongoose.Schema({
       type: [String]
 
     }
-  }, 
+  */
+  , 
   matchedSkills : {
     type: [String]
   }, 
-  matchedProjects: {
+  matchedProjects: []
+  /*
     name: {
       type: [String]
     },
@@ -97,24 +110,13 @@ var UserSchema = mongoose.Schema({
     description: {
       type: [String]
     }
-  },
-  matchedExperience: {
-    jobTitle : {
-      type: [String]
-    },
-    technologies: {
-      type: [String]
-    },
-    accomplishments: {
-      type: [String]
-    }
-  }
-
+  */
   });
 
 var User = mongoose.model("users", UserSchema);
 module.exports = User;
 
+//Creates user and adds to data with a hashed password
 module.exports.createUser = function(newUser, callback){
   bcrypt.genSalt(saltRounds, function(err, salt){
     bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -126,15 +128,18 @@ module.exports.createUser = function(newUser, callback){
   });
 }
 
+//Checks if user is in database (by username)
 module.exports.getUserbyUsername = function(username, callback){
   var query = {'email': username};
   User.findOne(query, callback);
 }
 
+//Check if user is in database (by objectID)
 module.exports.getUserById = function(id, callback){
     User.findById(id, callback);
 }
 
+//Add skill to user
 module.exports.updateUserSkills = function(idr, skill){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
@@ -145,76 +150,95 @@ module.exports.updateUserSkills = function(idr, skill){
   });
 }
 
+//Add project to user
 module.exports.updateUserProjects = function(idr, name, tech, desc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.projects.name.push(name);
-    user.projects.technologies.push(tech);
-    user.projects.description.push(desc);
+    user.projects.push({
+      name : name,
+      technologies : tech,
+      description : desc
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
+//Add education to user
 module.exports.updateEducation = function(idr, name, degree){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.education.name.push(name);
-    user.education.degree.push(degree);
+    user.education.push({
+      name : name,
+      degree : degree
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
+//Add achievements to user
 module.exports.updateAchievements = function(idr, name, desc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.achievements.title.push(name);
-    user.achievements.description.push(desc);
+    user.achievements.push({
+      name : name,
+      description : desc
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
+//Add work experience to user
 module.exports.updateWorkExperience = function(idr, jobtitle, tech, acc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.workExperience.jobTitle.push(jobtitle);
-    user.workExperience.technologies.push(tech);
-    user.workExperience.accomplishments.push(acc);
+    user.workExperience.push({
+      jobTitle : jobtitle,
+      technologies : tech,
+      accomplishments : acc
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
-module.exports.updateOther = function(idr, name, description){
+//Add other details to user
+module.exports.updateOther = function(idr, name, desc){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.other.title.push(name);
-    user.other.description.push(description);
+    user.other.push({
+      title : name,
+      description : desc
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
+//Add desired job to database
 module.exports.updateAddedJobs = function(idr, title, summary, responsibility, skills){
   User.findById(idr, function(err, user){
     if(err) console.log(err);
-    user.addedJob.title.push(title);
-    user.addedJob.summary.push(summary);
-    user.addedJob.responsibility.push(responsibility);
-    user.addedJob.skills.push(skills);
+    user.addedJob.push({
+      title : title,
+      summary : summary,
+      responsibility : responsibility,
+      skills : skills
+    });
     user.save(function(err, user){
       if(err) console.log(err);
     });
   });
 }
 
+//Login password check
 module.exports.comparePassword = function(typed, hash, callback){
   bcrypt.compare(typed, hash, function(err, res) {
     if(err) throw err;

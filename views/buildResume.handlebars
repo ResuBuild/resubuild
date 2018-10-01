@@ -56,8 +56,8 @@
         <h1 class="section-title Raleway4p25"><br>Build Resume<hr></h1>
         <p class="text Raleway1p5">Click on a job below to generate a resume.</p>
         <div class="leftLine bullets">
-        {{#each currentUser.addedJob.title}}
-          <a href="/buildResume/{{@index}}"><p class="text Raleway1p5">{{this}}</p></a>
+        {{#each currentUser.addedJob}}
+          <a href="/buildResume/{{@index}}"><p class="text Raleway1p5">{{this.title}}</p></a>
         {{/each}}
 		    </div>
     </div>

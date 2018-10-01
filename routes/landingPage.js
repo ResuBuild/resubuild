@@ -124,18 +124,14 @@ router.post('/other', function(req, res){
 
 
 router.get('/buildResume/:index', function(req, res){
-  var jobName = res.locals.user.addedJob.title[req.params.index];
-  var jobSkills = res.locals.user.addedJob.skills[req.params.index];
+  var jobName = res.locals.user.addedJob[req.params.index].title;
+  var jobSkills = res.locals.user.addedJob[req.params.index].skills;
 
   var projects = res.locals.user.projects;
   var skills = res.locals.user.skills;
-  jobSkills +=' ' + res.locals.user.addedJob.summary[req.params.index];
+  jobSkills +=' ' + res.locals.user.addedJob[req.params.index].summary;
   var matchingSkills = [];
-  var matchingProjects = {
-    name: [],
-    technologies: [],
-    description: [],
-  };
+  var matchingProjects = [];
 
   for(let i = 0; i < skills.length; i += 1){
     if(jobSkills.toUpperCase().includes(skills[i].toUpperCase())){
@@ -143,35 +139,19 @@ router.get('/buildResume/:index', function(req, res){
     }
   }
 
-  for(let i = 0; i < projects.name.length; i += 1){
-    var languages = projects.technologies[i].replace(/ /g,"").split(",");
-    for(let j = 0; j  < languages.length; j++){
-      console.log(languages[j]);
-      console.log(jobSkills);
+  for(let i = 0; i < projects.length; i += 1){
+    var languages = projects[i].technologies.replace(/ /g,"").split(",");
+    for(let j = 0; j < languages.length; j++){
       if(jobSkills.toUpperCase().includes(languages[j].toUpperCase())){
-          matchingProjects.name.push(projects.name[i]);
-          matchingProjects.technologies.push(projects.technologies[i]);
-          matchingProjects.description.push(projects.description[i]);
-    }
-
-    }
-  }
-
-
-  var workExperience = res.locals.user.workExperience;
-  var matchingExperience = {
-    jobTitle: [],
-    technologies: [],
-    accomplishments: []
-  };
-  for(let i = 0; i < workExperience.jobTitle.length; i += 1){
-    if(jobName.includes(workExperience.jobTitle[i])){
-      matchingExperience.jobTitle.push(workExperience.jobTitle[i]);
-      matchingExperience.technologies.push(workExperience.technologies[i]);
-      matchingExperience.accomplishments.push(workExperience.accomplishments[i]);
+        matchingProjects.push({
+          name : projects[i].name,
+          technologies : projects[i].technologies,
+          description : projects[i].description
+        });
+      }
     }
   }
-  res.locals.user.matchedExperience = matchingExperience;
+
   res.locals.user.matchedProjects = matchingProjects;
   res.locals.user.matchedSkills = matchingSkills;
 
@@ -185,12 +165,12 @@ router.get('/buildResume/:index', function(req, res){
 router.post('/register', [
   check('email', 'not a valid email ').isEmail(),
   check('password2').custom((value,{req, loc, path}) => {
-            if (value !== req.body.password1) {
-                throw new Error("Passwords don't match");
-            } else {
-                return value;
-            }
-        })
+      if (value !== req.body.password1) {
+          throw new Error("Passwords don't match");
+      } else {
+          return value;
+      }
+  })
 ],function(req, res){
   const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
     return `${msg}`;

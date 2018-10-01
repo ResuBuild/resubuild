@@ -1,4 +1,4 @@
-//dependencies
+//Dependencies
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -12,49 +12,50 @@ var LocalStrategy = require('passport-local').Strategy;
 const { matchedData, sanitize } = require('express-validator/filter');
 const port = 3000;
 var mongoose = require('mongoose');
+//mongoose.connect(process.env.MONGODB_URI,function(err) this is the heroku thing
 //mongoose.connect("mongodb://"+process.env.dbUsername+":"+process.env.dbPassword+"@ds135760.mlab.com:35760/resubuild",function(err) {
-mongoose.connect(process.env.MONGODB_URI,function(err) {
+mongoose.connect("mongodb://localhost/resuBuild",function(err) {
     if (err)
         errorDB = true;
 });
 var db = mongoose.connection;
 
-//Routes for express
+//Routes for Express
 var routes = require("./routes/landingPage");
 //var users = require("./routes/users");
 
-//Initialize application
+//Initialize Application
 app = express();
 
-//template engine
+//Template Engine
 app.engine("handlebars", exphbs({defaultLayout: "layout"}));
 app.set('port', (process.env.PORT || 5000))
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 
-//body parser for HTTP POST requests and cookies
+//Body Parser for HTTP POST requests and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-//static pages
+//Static Pages
 app.use(express.static(path.join(__dirname, "public")));
 
-//session middleware
+//Session middleware
 app.use(session({
   secret: "resuSecretWhyNot",
   saveUninitialized: true,
   resave: true
 }));
 
-//passport middleware
+//Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-//flash middleware
+//Flash middleware
 app.use(flash());
 
-//global variables for flash
+//Global Variables for Flash
 app.use(function(req, res, next){
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
@@ -64,7 +65,7 @@ app.use(function(req, res, next){
   next();
 });
 
-//set routes
+//Set Routes
 app.use('/', routes);
 //app.use('/users', users);
 
